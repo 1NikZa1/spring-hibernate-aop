@@ -1,9 +1,7 @@
 package org.example.mvc_hibernate.controller;
 
-import net.bytebuddy.matcher.StringMatcher;
-import org.example.mvc_hibernate.dao.EmployeeDAO;
 import org.example.mvc_hibernate.entity.Employee;
-import org.example.mvc_hibernate.service.EmployeeService;
+import org.example.mvc_hibernate.service.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,12 +15,12 @@ import java.util.List;
 public class MyController {
 
     @Autowired
-    private EmployeeService employeeService;
+    private BaseService<Employee> baseService;
 
     @RequestMapping("/")
     public String showAllEmployees(Model model) {
 
-        List<Employee> allEmployees = employeeService.getAllEmployees();
+        List<Employee> allEmployees = baseService.getAllEmployees();
         model.addAttribute("allEmps", allEmployees);
 
         return "employees";
@@ -49,20 +47,20 @@ public class MyController {
         }
 
 
-        employeeService.saveEmployee(employee);
+        baseService.saveEmployee(employee);
         return "redirect:/";
     }
 
     @RequestMapping("/update")
     public String updateEmployee(@RequestParam("empId") int id, Model model) {
-        model.addAttribute("emp", employeeService.getEmployee(id));
+        model.addAttribute("emp", baseService.getEmployee(id));
         return "add";
     }
 
     @RequestMapping("/delete")
     public String deleteEmployee(@RequestParam("empId") int id) {
 
-        employeeService.deleteEmployee(id);
+        baseService.deleteEmployee(id);
 
         return "redirect:/";
     }

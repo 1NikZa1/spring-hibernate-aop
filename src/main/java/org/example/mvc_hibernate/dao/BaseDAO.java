@@ -4,10 +4,10 @@ import org.example.mvc_hibernate.entity.Employee;
 
 import java.util.List;
 
-public interface EmployeeDAO {
+public interface BaseDAO<T>{
     List<Employee> getAllEmployees();
 
-    void saveEmployee(Employee employee);
+    void saveEmployee(T t);
 
     Employee getEmployee(int id);
 

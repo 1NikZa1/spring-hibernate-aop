@@ -4,10 +4,10 @@ import org.example.mvc_hibernate.entity.Employee;
 
 import java.util.List;
 
-public interface EmployeeService {
+public interface BaseService<T> {
 
     List<Employee> getAllEmployees();
-    void saveEmployee(Employee employee);
+    void saveEmployee(T t);
     Employee getEmployee(int id);
     void deleteEmployee(int id);
 
